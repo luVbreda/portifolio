@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lucas Breda | Portifólio</title>
+    <title>Lucas Breda | Portfólio</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;700&display=swap">
     <style>
         body {
@@ -11,74 +11,163 @@
             margin: 0;
             padding: 0;
             transition: background 0.3s, color 0.3s;
+            background: #f4f4f4;
+            color: #333;
         }
-        .container {
-            max-width: 800px;
-            margin: auto;
-            padding: 20px;
-        }
+
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 10px 20px;
-            background: #f0f0f0;
+            background: #e0e0e0;
+            position: relative;
+            z-index: 10;
         }
+
         .dark-mode {
             background: #121212;
             color: #ffffff;
         }
+
         .dark-mode .header {
             background: #1f1f1f;
         }
+
+        .dark-mode .container {
+            background: rgba(40, 40, 40, 0.9);
+            color: #ffffff;
+        }
+
         button {
             padding: 10px;
             border: none;
             cursor: pointer;
             border-radius: 5px;
         }
+
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+            position: relative;
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            margin-bottom: 20px;
+            width: 80%;
+            max-width: 800px;
+        }
+
+        .profile img {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-right: 20px;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 800px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            position: relative;
+            text-align: left;
+            margin-bottom: 20px;
+            transition: transform 0.3s, filter 0.3s, background 0.3s, color 0.3s;
+            height: auto;
+            min-height: 150px;
+        }
+
+        .container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: inherit;
+            border-radius: 10px;
+            z-index: -1;
+            transform: scale(0.95);
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.3s;
+        }
+
+        .container:hover {
+            transform: scale(1.05);
+            filter: blur(0);
+        }
+
+        .container:hover::before {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .main-container:has(.container:hover) .container:not(:hover) {
+            filter: blur(5px);
+        }
+
     </style>
 </head>
 <body>
     <div class="header">
-        <h1>Lucas Breda | Portifólio</h1>
+        <h1>Lucas Breda | Portfólio</h1>
         <button id="theme-toggle">Modo Escuro</button>
     </div>
-    <div class="container">
-        <h2>Lucas Breda</h2>
-        <p>Graduando em Engenharia de Computação pelo SENAI CIMATEC (2022 - atual), competidor da Olimpíada Brasileira de Informática (OBI - 2023).</p>
 
-        <h2>Formação acadêmica/titulação</h2>
-        <ul>
-            <li><b>2022</b><p>Graduação em andamento em Engenharia de Computação. <br>
-                            CENTRO UNIVERSITÁRIO SENAI CIMATEC, CIMATEC, Brasil.</p></li>
-        </ul>
-        
-        
-        <h2>Projetos de Pesquisa</h2>
-        <ul>
-            <li><b>2023 - 2024</b> Análise do comportamento de ações na bolsa de valores utilizando Redes Neurais</li>
-                <p>Descrição: O objetivo geral deste projeto de pesquisa envolve o desenvolvimento e aaplicação de modelos de redes neurais para a predição do comportamento de ações embolsa de valores..
-                Situação: Concluído; Natureza: Pesquisa.
-                Alunos envolvidos: Graduação: (1).</p>
-                    
-                <p>Integrantes: Lucas Breda Lima Mascarenhas - Integrante / Artur Henrique Kronbauer - Coordenador.
-                Financiador(es): CENTRO UNIVERSITÁRIO SENAI CIMATEC - Bolsa.</p>
-        </ul>
+    <div class="main-container">
+        <div class="profile">
+            <img src="images/perfil.jpeg" alt="Foto de Perfil">
+            <div>
+                <h2>Lucas Breda</h2>
+                <p>Graduando em Engenharia de Computação pelo SENAI CIMATEC (2022 - atual), competidor da Olimpíada Brasileira de Informática (OBI - 2023).</p>
+            </div>
+        </div>
 
-        <h2>Idiomas</h2>
-        <ul>
-            <li><b>Português</b> - Compreende Bem, Fala Bem, Lê Bem, Escreve Bem.</li>
-            <li><b>Inglês</b> - Compreende Bem, Fala Razoavelmente, Lê Bem, Escreve Razoavelmente.</li>
-        </ul>
-        <h2>Contato</h2>
-        <p>Email: contatolucasbreda@gmail.com</p>
-        <p>Telefone: (75) 99921-8129</p>
+        <div class="container">
+            <h2>Formação acadêmica/titulação</h2>
+            <ul>
+                <li><b>2022</b><p>Graduação em andamento em Engenharia de Computação. <br>
+                                CENTRO UNIVERSITÁRIO SENAI CIMATEC, CIMATEC, Brasil.</p></li>
+            </ul>
+        </div>
+            
+        <div class="container">
+            <h2>Projetos de Pesquisa</h2>
+            <ul>
+                <li><b>2023 - 2024</b> Análise do comportamento de ações na bolsa de valores utilizando Redes Neurais</li>
+                    <p>Descrição: O objetivo geral deste projeto de pesquisa envolve o desenvolvimento e aplicação de modelos de redes neurais para a predição do comportamento de ações na bolsa de valores.</p>
+            </ul>
+        </div>
+            
+        <div class="container">
+            <h2>Idiomas</h2>
+            <ul>
+                <li><b>Português</b> - Compreende Bem, Fala Bem, Lê Bem, Escreve Bem.</li>
+                <li><b>Inglês</b> - Compreende Bem, Fala Razoavelmente, Lê Bem, Escreve Razoavelmente.</li>
+            </ul>
+        </div>
+        
+        <div class="container">
+            <h2>Contato</h2>
+            <p>Email: contatolucasbreda@gmail.com</p>
+            <p>Telefone: (75) 99921-8129</p>
+        </div>
     </div>
+
     <script>
         const button = document.getElementById("theme-toggle");
         button.addEventListener("click", () => {
             document.body.classList.toggle("dark-mode");
+
+            const containers = document.querySelectorAll(".container");
             if (document.body.classList.contains("dark-mode")) {
                 button.textContent = "Modo Claro";
             } else {
