@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lucas Breda | Portfólio</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;700&display=swap">
+    <link rel="shortcut icon" href="images\perfil.jpeg">
     <style>
         body {
             font-family: 'Titillium Web', sans-serif;
@@ -13,6 +14,8 @@
             transition: background 0.3s, color 0.3s;
             background: #f4f4f4;
             color: #333;
+            min-width: 600px;
+            overflow-x: auto;
         }
 
         .header {
@@ -64,8 +67,8 @@
         }
 
         .profile img {
-            width: 200px;
-            height: 200px;
+            width: min(200px, 30vw);
+            height: min(200px, 30vw)x;
             object-fit: cover;
             border-radius: 5px;
             margin-right: 20px;
@@ -114,6 +117,52 @@
             filter: blur(5px);
         }
 
+        .link-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .link-block {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: inherit;
+            padding: 15px;
+            border-radius: 8px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .dark-mode .link-block {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .link-block:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .link-preview {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            border-radius: 10px;
+            padding: 5px;
+        }
+
+        .link-preview img {
+            max-width: 100%;
+            max-height: 100%;
+        }
     </style>
 </head>
 <body>
@@ -160,6 +209,26 @@
             <p>Email: contatolucasbreda@gmail.com</p>
             <p>Telefone: (75) 99921-8129</p>
         </div>
+    
+
+    <div class="container">
+        <h2>Outros Projetos</h2>
+        <div class="link-grid">
+            <a href="https://github.com" class="link-block" target="_blank">
+                <div class="link-preview">
+                    <img src="https://www.google.com/s2/favicons?domain=github.com" alt="GitHub">
+                </div>
+                <span>GitHub</span>
+            </a>
+        
+            <a href="https://linkedin.com" class="link-block" target="_blank">
+                <div class="link-preview">
+                    <img src="https://www.google.com/s2/favicons?domain=linkedin.com" alt="LinkedIn">
+                </div>
+                <span>LinkedIn</span>
+            </a>
+        </div>
+    </div>
     </div>
 
     <script>
