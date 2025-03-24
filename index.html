@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lucas Breda | Portifólio</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;700&display=swap">
+    <style>
+        body {
+            font-family: 'Titillium Web', sans-serif;
+            margin: 0;
+            padding: 0;
+            transition: background 0.3s, color 0.3s;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background: #f0f0f0;
+        }
+        .dark-mode {
+            background: #121212;
+            color: #ffffff;
+        }
+        .dark-mode .header {
+            background: #1f1f1f;
+        }
+        button {
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Lucas Breda | Portifólio</h1>
+        <button id="theme-toggle">Modo Escuro</button>
+    </div>
+    <div class="container">
+        <h2>Lucas Breda</h2>
+        <p>Graduando em Engenharia de Computação pelo SENAI CIMATEC (2022 - atual), competidor da Olimpíada Brasileira de Informática (OBI - 2023).</p>
+
+        <h2>Formação acadêmica/titulação</h2>
+        <ul>
+            <li><b>2022</b><p>Graduação em andamento em Engenharia de Computação. <br>
+                            CENTRO UNIVERSITÁRIO SENAI CIMATEC, CIMATEC, Brasil.</p></li>
+        </ul>
+        
+        
+        <h2>Projetos de Pesquisa</h2>
+        <ul>
+            <li><b>2023 - 2024</b> Análise do comportamento de ações na bolsa de valores utilizando Redes Neurais</li>
+                <p>Descrição: O objetivo geral deste projeto de pesquisa envolve o desenvolvimento e aaplicação de modelos de redes neurais para a predição do comportamento de ações embolsa de valores..
+                Situação: Concluído; Natureza: Pesquisa.
+                Alunos envolvidos: Graduação: (1).</p>
+                    
+                <p>Integrantes: Lucas Breda Lima Mascarenhas - Integrante / Artur Henrique Kronbauer - Coordenador.
+                Financiador(es): CENTRO UNIVERSITÁRIO SENAI CIMATEC - Bolsa.</p>
+        </ul>
+
+        <h2>Idiomas</h2>
+        <ul>
+            <li><b>Português</b> - Compreende Bem, Fala Bem, Lê Bem, Escreve Bem.</li>
+            <li><b>Inglês</b> - Compreende Bem, Fala Razoavelmente, Lê Bem, Escreve Razoavelmente.</li>
+        </ul>
+        <h2>Contato</h2>
+        <p>Email: contatolucasbreda@gmail.com</p>
+        <p>Telefone: (75) 99921-8129</p>
+    </div>
+    <script>
+        const button = document.getElementById("theme-toggle");
+        button.addEventListener("click", () => {
+            document.body.classList.toggle("dark-mode");
+            if (document.body.classList.contains("dark-mode")) {
+                button.textContent = "Modo Claro";
+            } else {
+                button.textContent = "Modo Escuro";
+            }
+        });
+    </script>
+</body>
+</html>
