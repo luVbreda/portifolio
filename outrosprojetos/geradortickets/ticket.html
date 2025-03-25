@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Ingressos Premium</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap">
+    <script src="https://cdn.jsdelivr.net/npm/qrious@4.0.2/dist/qrious.min.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #f59e0b;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray: #94a3b8;
+            --error: #ef4444;
+            --vip: #000000;
+            --vip-secondary: #FFD700;
+            --student: #10b981;
+            --speaker: #ec4899;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: white;
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+        
+        .form-section {
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2);
+            color: var(--dark);
+        }
+        
+        .ticket-section {
+            position: sticky;
+            top: 2rem;
+            align-self: start;
+            width: 100%;
+            max-width: 500px; /* Aumentado de 400px para 500px */
+        }
+        
+        h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--gray);
+            border-radius: 0.5rem;
+            font-family: inherit;
+            font-size: 1rem;
+        }
+        
+        .error-field {
+            border-color: var(--error) !important;
+        }
+        
+        .error-message {
+            color: var(--error);
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+            display: none;
+        }
+        
+        button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+        
+        button:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        .ticket {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            transform-style: preserve-3d;
+            width: 100%;
+        }
+        
+        .ticket.vip {
+            background: linear-gradient(135deg, var(--vip), #222);
+        }
+        
+        .ticket.student {
+            background: linear-gradient(135deg, var(--student), #059669);
+        }
+        
+        .ticket.speaker {
+            background: linear-gradient(135deg, var(--speaker), #db2777);
+        }
+        
+        .ticket.vip .ticket-logo,
+        .ticket.vip .ticket-title,
+        .ticket.vip .info-group p {
+            color: var(--vip-secondary);
+        }
+        
+        .ticket.spin {
+            animation: spin 0.6s ease-in-out;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotateY(0deg); }
+            50% { transform: rotateY(180deg); opacity: 0.5; }
+            100% { transform: rotateY(360deg); opacity: 1; }
+        }
+        
+        .ticket::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 0.5rem;
+            background: linear-gradient(90deg, var(--secondary), #fbbf24);
+        }
+        
+        .ticket-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .ticket-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .ticket-logo {
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--secondary);
+        }
+        
+        .ticket-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .info-group h3 {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 0.25rem;
+        }
+        
+        .info-group p {
+            font-size: 1rem;
+            font-weight: 500;
+            word-break: break-word; /* Permite quebrar palavras longas como emails */
+        }
+        
+        .ticket-image-container {
+            width: 150px;
+            height: 150px;
+            margin: 1rem auto;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            border: 3px solid white;
+            display: none;
+        }
+        
+        .ticket-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .ticket-qrcode {
+            background-color: white;
+            width: 120px;
+            height: 120px;
+            margin: 1rem auto;
+            border-radius: 0.5rem;
+            padding: 0.5rem;
+        }
+        
+        .ticket-footer {
+            text-align: center;
+            margin-top: 1.5rem;
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .action-buttons {
+            display: none;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .action-buttons button {
+            flex: 1;
+        }
+        
+        .secondary-btn {
+            background-color: var(--gray);
+        }
+        
+        .image-preview {
+            max-width: 100%;
+            max-height: 200px;
+            margin-top: 1rem;
+            border-radius: 0.5rem;
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            
+            .ticket-section {
+                position: static;
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Gerador de Ingressos Premium</h1>
+        <p>Crie seu ingresso personalizado para o TechConf 2023</p>
+    </div>
+    
+    <div class="container">
+        <section class="form-section" id="form-section">
+            <h2>Personalize seu Ingresso</h2>
+            
+            <div class="form-group">
+                <label for="name">Nome Completo</label>
+                <input type="text" id="name" placeholder="Seu nome completo" required>
+                <div class="error-message" id="name-error">Por favor, insira seu nome</div>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="seu@email.com" required>
+                <div class="error-message" id="email-error">Por favor, insira um email válido</div>
+            </div>
+            
+            <div class="form-group">
+                <label for="image">Foto (Opcional)</label>
+                <input type="file" id="image" accept="image/*">
+                <img id="image-preview" class="image-preview" alt="Prévia da imagem">
+            </div>
+            
+            <div class="form-group">
+                <label for="type">Tipo de Ingresso</label>
+                <select id="type">
+                    <option value="general">Ingresso Geral</option>
+                    <option value="vip">VIP</option>
+                    <option value="student">Estudante</option>
+                    <option value="speaker">Palestrante</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="date">Data do Evento</label>
+                <input type="date" id="date" required>
+                <div class="error-message" id="date-error">Por favor, selecione uma data futura</div>
+            </div>
+            
+            <button id="generate-btn">Gerar Ingresso</button>
+        </section>
+        
+        <section class="ticket-section">
+            <div class="ticket" id="ticket">
+                <div class="ticket-header">
+                    <div class="ticket-title">TechConf <span id="ticket-year">2023</span></div>
+                    <div class="ticket-logo">TC</div>
+                </div>
+                
+                <div class="ticket-info">
+                    <div class="info-group">
+                        <h3>Nome</h3>
+                        <p id="ticket-name">Seu Nome</p>
+                    </div>
+                    
+                    <div class="info-group">
+                        <h3>Email</h3>
+                        <p id="ticket-email">seu@email.com</p>
+                    </div>
+                    
+                    <div class="info-group">
+                        <h3>Tipo</h3>
+                        <p id="ticket-type">Ingresso Geral</p>
+                    </div>
+                    
+                    <div class="info-group">
+                        <h3>Data</h3>
+                        <p id="ticket-date">15/11/2023</p>
+                    </div>
+                </div>
+                
+                <div class="ticket-image-container" id="ticket-image-container">
+                    <img id="ticket-image" class="ticket-image">
+                </div>
+                
+                <div class="ticket-qrcode" id="qrcode"></div>
+                
+                <div class="ticket-footer">
+                    <div id="ticket-id">ID: #TC-0000</div>
+                </div>
+            </div>
+            
+            <div class="action-buttons" id="action-buttons">
+                <button id="download-btn">Baixar Ingresso</button>
+                <button class="secondary-btn" id="send-email-btn">Enviar por Email</button>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Elementos do formulário
+            const formSection = document.getElementById('form-section');
+            const generateBtn = document.getElementById('generate-btn');
+            const downloadBtn = document.getElementById('download-btn');
+            const sendEmailBtn = document.getElementById('send-email-btn');
+            const nameInput = document.getElementById('name');
+            const emailInput = document.getElementById('email');
+            const imageInput = document.getElementById('image');
+            const imagePreview = document.getElementById('image-preview');
+            const typeInput = document.getElementById('type');
+            const dateInput = document.getElementById('date');
+            const actionButtons = document.getElementById('action-buttons');
+            
+            // Elementos do ticket
+            const ticket = document.getElementById('ticket');
+            const ticketName = document.getElementById('ticket-name');
+            const ticketEmail = document.getElementById('ticket-email');
+            const ticketType = document.getElementById('ticket-type');
+            const ticketDate = document.getElementById('ticket-date');
+            const ticketYear = document.getElementById('ticket-year');
+            const ticketId = document.getElementById('ticket-id');
+            const ticketImageContainer = document.getElementById('ticket-image-container');
+            const ticketImage = document.getElementById('ticket-image');
+            const qrcode = document.getElementById('qrcode');
+            
+            // Configura data mínima como hoje
+            const today = new Date();
+            dateInput.setAttribute('min', today.toISOString().split('T')[0]);
+            
+            // Validação no blur (quando sai do campo)
+            function setupValidation() {
+                // Validação do nome (só ao sair do campo)
+                nameInput.addEventListener('blur', function() {
+                    if (!this.value.trim()) {
+                        this.classList.add('error-field');
+                        document.getElementById('name-error').style.display = 'block';
+                    } else {
+                        this.classList.remove('error-field');
+                        document.getElementById('name-error').style.display = 'none';
+                    }
+                });
+                
+                // Validação do email (só ao sair do campo)
+                emailInput.addEventListener('blur', function() {
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!this.value || !emailRegex.test(this.value)) {
+                        this.classList.add('error-field');
+                        document.getElementById('email-error').style.display = 'block';
+                    } else {
+                        this.classList.remove('error-field');
+                        document.getElementById('email-error').style.display = 'none';
+                    }
+                });
+                
+                // Validação da data (só ao sair do campo)
+                dateInput.addEventListener('blur', function() {
+                    const selectedDate = new Date(this.value);
+                    if (!this.value || selectedDate < today) {
+                        this.classList.add('error-field');
+                        document.getElementById('date-error').style.display = 'block';
+                    } else {
+                        this.classList.remove('error-field');
+                        document.getElementById('date-error').style.display = 'none';
+                    }
+                });
+            }
+            
+            // Atualização em tempo real do ticket
+            function setupRealTimeUpdates() {
+                // Nome
+                nameInput.addEventListener('input', () => {
+                    ticketName.textContent = nameInput.value || "Seu Nome";
+                });
+                
+                // Email
+                emailInput.addEventListener('input', () => {
+                    ticketEmail.textContent = emailInput.value || "seu@email.com";
+                });
+                
+                // Tipo de ingresso com animação
+                typeInput.addEventListener('change', function() {
+                    // Animação de giro
+                    ticket.classList.add('spin');
+                    
+                    // Atualiza o tipo após metade da animação
+                    setTimeout(() => {
+                        const typeText = this.options[this.selectedIndex].text;
+                        ticketType.textContent = typeText;
+                        
+                        // Atualiza estilo
+                        ticket.className = 'ticket';
+                        ticket.classList.add(this.value, 'spin');
+                    }, 300);
+                    
+                    // Remove classe de animação
+                    setTimeout(() => {
+                        ticket.classList.remove('spin');
+                    }, 600);
+                });
+                
+                // Data
+                dateInput.addEventListener('change', function() {
+                    if (this.value) {
+                        const date = new Date(this.value);
+                        ticketDate.textContent = date.toLocaleDateString('pt-BR');
+                        ticketYear.textContent = date.getFullYear();
+                    } else {
+                        ticketDate.textContent = "15/11/2023";
+                        ticketYear.textContent = "2023";
+                    }
+                });
+                
+                // Imagem
+                imageInput.addEventListener('change', function(e) {
+                    const file = e.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = function(event) {
+                            imagePreview.src = event.target.result;
+                            imagePreview.style.display = 'block';
+                            
+                            ticketImage.src = event.target.result;
+                            ticketImageContainer.style.display = 'block';
+                        }
+                        reader.readAsDataURL(file);
+                    } else {
+                        imagePreview.style.display = 'none';
+                        ticketImageContainer.style.display = 'none';
+                    }
+                });
+            }
+            
+            // Geração do QR Code
+            function generateQRCode(data) {
+                qrcode.innerHTML = '';
+                new QRious({
+                    element: qrcode,
+                    value: data,
+                    size: 120,
+                    level: 'H',
+                    foreground: '#1e293b'
+                });
+            }
+            
+            // Geração do ticket
+            generateBtn.addEventListener('click', function() {
+                // Validação final
+                let isValid = true;
+                
+                if (!nameInput.value.trim()) {
+                    nameInput.classList.add('error-field');
+                    document.getElementById('name-error').style.display = 'block';
+                    isValid = false;
+                }
+                
+                if (!emailInput.value || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value)) {
+                    emailInput.classList.add('error-field');
+                    document.getElementById('email-error').style.display = 'block';
+                    isValid = false;
+                }
+                
+                if (!dateInput.value || new Date(dateInput.value) < today) {
+                    dateInput.classList.add('error-field');
+                    document.getElementById('date-error').style.display = 'block';
+                    isValid = false;
+                }
+                
+                if (!isValid) return;
+                
+                // Gera ID do ticket
+                const randomId = Math.floor(1000 + Math.random() * 9000);
+                const ticketIdText = `ID: #TC-${randomId}`;
+                ticketId.textContent = ticketIdText;
+                
+                // Gera QR code
+                generateQRCode(`Nome: ${nameInput.value}\nEmail: ${emailInput.value}\nTipo: ${typeInput.options[typeInput.selectedIndex].text}\nID: TC-${randomId}`);
+                
+                // Esconde o formulário e mostra apenas o ticket com os botões
+                formSection.style.display = 'none';
+                actionButtons.style.display = 'flex';
+                
+                // Centraliza o ticket mantendo o tamanho
+                document.querySelector('.container').style.gridTemplateColumns = '1fr';
+                document.querySelector('.container').style.maxWidth = '500px'; /* Ajustado para 500px */
+                document.querySelector('.container').style.margin = '0 auto';
+            });
+            
+            // Download do ticket
+            downloadBtn.addEventListener('click', function() {
+                html2canvas(ticket).then(canvas => {
+                    const link = document.createElement('a');
+                    link.download = `ingresso-${nameInput.value.replace(/\s+/g, '-')}.png`;
+                    link.href = canvas.toDataURL('image/png');
+                    link.click();
+                });
+            });
+            
+            // Enviar por email (simulado)
+            sendEmailBtn.addEventListener('click', function() {
+                alert(`Ingresso enviado para: ${emailInput.value}`);
+            });
+            
+            // Inicializa as funções
+            setupValidation();
+            setupRealTimeUpdates();
+        });
+    </script>
+</body>
+</html>
