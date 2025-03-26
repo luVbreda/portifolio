@@ -5,165 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lucas Breda | Portfólio</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;700&display=swap">
-    <link rel="shortcut icon" href="images\perfil.jpeg">
-    <style>
-        body {
-            font-family: 'Titillium Web', sans-serif;
-            margin: 0;
-            padding: 0;
-            transition: background 0.3s, color 0.3s;
-            background: #f4f4f4;
-            color: #333;
-            min-width: 600px;
-            overflow-x: auto;
-        }
-
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 20px;
-            background: #e0e0e0;
-            position: relative;
-            z-index: 10;
-        }
-
-        .dark-mode {
-            background: #121212;
-            color: #ffffff;
-        }
-
-        .dark-mode .header {
-            background: #1f1f1f;
-        }
-
-        .dark-mode .container {
-            background: rgba(40, 40, 40, 0.9);
-            color: #ffffff;
-        }
-
-        button {
-            padding: 10px;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-
-        .main-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 40px 20px;
-            position: relative;
-        }
-
-        .profile {
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            margin-bottom: 20px;
-            width: 80%;
-            max-width: 800px;
-        }
-
-        .profile img {
-            width: min(200px, 30vw);
-            height: min(200px, 30vw)x;
-            object-fit: cover;
-            border-radius: 5px;
-            margin-right: 20px;
-        }
-
-        .container {
-            width: 80%;
-            max-width: 800px;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 10px;
-            position: relative;
-            text-align: left;
-            margin-bottom: 20px;
-            transition: transform 0.3s, filter 0.3s, background 0.3s, color 0.3s;
-            height: auto;
-            min-height: 150px;
-        }
-
-        .container::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: inherit;
-            border-radius: 10px;
-            z-index: -1;
-            transform: scale(0.95);
-            opacity: 0;
-            transition: opacity 0.3s, transform 0.3s;
-        }
-
-        .container:hover {
-            transform: scale(1.05);
-            filter: blur(0);
-        }
-
-        .container:hover::before {
-            opacity: 1;
-            transform: scale(1);
-        }
-
-        .main-container:has(.container:hover) .container:not(:hover) {
-            filter: blur(5px);
-        }
-
-        .link-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .link-block {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-decoration: none;
-            color: inherit;
-            padding: 15px;
-            border-radius: 8px;
-            transition: transform 0.2s, box-shadow 0.2s;
-            background: rgba(255, 255, 255, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-        }
-
-        .dark-mode .link-block {
-            background: rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .link-block:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .link-preview {
-            width: 50px;
-            height: 50px;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: white;
-            border-radius: 10px;
-            padding: 5px;
-        }
-
-        .link-preview img {
-            max-width: 100%;
-            max-height: 100%;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="images/perfil.jpeg">
 </head>
 <body>
     <div class="header">
@@ -214,9 +57,9 @@
     <div class="container">
         <h2>Outros Projetos</h2>
         <div class="link-grid">
-            <a href="outrosprojetos\geradortickets\ticket.html" class="link-block" target="_blank">
+            <a href="outrosprojetos/geradortickets/index.html" class="link-block" target="_blank">
                 <div class="link-preview">
-                    <img src="outrosprojetos\geradortickets\images\icon.png" alt="Gerador de Tickets">
+                    <img src="outrosprojetos/geradortickets/images/icon.png" alt="Gerador de Tickets">
                 </div>
                 <span>Gerador de Tickets</span>
             </a>
@@ -224,18 +67,6 @@
     </div>
     </div>
 
-    <script>
-        const button = document.getElementById("theme-toggle");
-        button.addEventListener("click", () => {
-            document.body.classList.toggle("dark-mode");
-
-            const containers = document.querySelectorAll(".container");
-            if (document.body.classList.contains("dark-mode")) {
-                button.textContent = "Modo Claro";
-            } else {
-                button.textContent = "Modo Escuro";
-            }
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>

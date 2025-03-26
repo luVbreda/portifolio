@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerador de Ingressos Premium</title>
+    <title>Gerador de Ingressos | Lucas Breda</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap">
     <script src="https://cdn.jsdelivr.net/npm/qrious@4.0.2/dist/qrious.min.js"></script>
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
@@ -73,7 +73,7 @@
             top: 2rem;
             align-self: start;
             width: 100%;
-            max-width: 500px; /* Aumentado de 400px para 500px */
+            max-width: 500px;
         }
         
         h2 {
@@ -216,7 +216,7 @@
         .info-group p {
             font-size: 1rem;
             font-weight: 500;
-            word-break: break-word; /* Permite quebrar palavras longas como emails */
+            word-break: break-word;
         }
         
         .ticket-image-container {
@@ -287,8 +287,8 @@
 </head>
 <body>
     <div class="header">
-        <h1>Gerador de Ingressos Premium</h1>
-        <p>Crie seu ingresso personalizado para o TechConf 2023</p>
+        <h1>Gerador de Ingressos</h1>
+        <p>Crie seu ingresso personalizado para a Bahia Connect</p>
     </div>
     
     <div class="container">
@@ -335,29 +335,29 @@
         <section class="ticket-section">
             <div class="ticket" id="ticket">
                 <div class="ticket-header">
-                    <div class="ticket-title">TechConf <span id="ticket-year">2023</span></div>
-                    <div class="ticket-logo">TC</div>
+                    <div class="ticket-title">Bahia Connect <span id="ticket-year">20XX</span></div>
+                    <div class="ticket-logo">BC</div>
                 </div>
                 
                 <div class="ticket-info">
                     <div class="info-group">
                         <h3>Nome</h3>
-                        <p id="ticket-name">Seu Nome</p>
+                        <p id="ticket-name">|</p>
                     </div>
                     
                     <div class="info-group">
                         <h3>Email</h3>
-                        <p id="ticket-email">seu@email.com</p>
+                        <p id="ticket-email">|</p>
                     </div>
                     
                     <div class="info-group">
                         <h3>Tipo</h3>
-                        <p id="ticket-type">Ingresso Geral</p>
+                        <p id="ticket-type">|</p>
                     </div>
                     
                     <div class="info-group">
                         <h3>Data</h3>
-                        <p id="ticket-date">15/11/2023</p>
+                        <p id="ticket-date">|</p>
                     </div>
                 </div>
                 
@@ -452,12 +452,12 @@
             function setupRealTimeUpdates() {
                 // Nome
                 nameInput.addEventListener('input', () => {
-                    ticketName.textContent = nameInput.value || "Seu Nome";
+                    ticketName.textContent = nameInput.value || "|";
                 });
                 
                 // Email
                 emailInput.addEventListener('input', () => {
-                    ticketEmail.textContent = emailInput.value || "seu@email.com";
+                    ticketEmail.textContent = emailInput.value || "|";
                 });
                 
                 // Tipo de ingresso com animação
