@@ -21,21 +21,21 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    padding: 1rem;
 }
 
-.container {
+.calculator-container {
     background-color: var(--white);
-    width: 600px;
-    max-width: 90%;
-    padding: 3rem;
-    border-radius: 1.5rem 1.5rem 6rem 1.5rem; /* Alterado aqui */
+    width: 100%;
+    max-width: 600px;
+    padding: 2rem;
+    border-radius: 1.5rem 1.5rem 6rem 1.5rem;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     position: relative;
     overflow: hidden;
 }
 
-/* Adicionando o detalhe no canto inferior direito */
-.container::after {
+.calculator-container::after {
     content: '';
     position: absolute;
     bottom: 0;
@@ -49,38 +49,50 @@ body {
     z-index: 0;
 }
 
-h1 {
+.calculator-title {
     color: var(--off-black);
-    margin-bottom: 2rem;
-    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    font-size: clamp(1.5rem, 5vw, 2rem);
     text-align: center;
     position: relative;
     z-index: 1;
 }
 
 .input-container {
-    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
     margin-bottom: 2rem;
+    position: relative;
     z-index: 1;
+}
+
+.date-input-wrapper {
+    width: 100%;
+}
+
+.date-input-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--smokey-grey);
+    font-weight: 600;
+    font-size: 0.9rem;
 }
 
 .date-input {
     width: 100%;
-    padding: 1rem;
-    border: 2px solid var(--light-grey);
-    border-radius: 0.5rem;
-    font-size: 1.1rem;
+    padding: 0.8rem 1rem;
+    border: 1px solid var(--light-grey);
+    border-radius: 8px;
+    font-size: 1rem;
     font-weight: 700;
-    color: var(--off-black);
     transition: all 0.3s;
-    position: relative;
-    z-index: 1;
-    background-color: transparent;
 }
 
 .date-input:focus {
     outline: none;
     border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(76, 91, 219, 0.2);
 }
 
 .date-input.error {
@@ -89,12 +101,9 @@ h1 {
 
 .error-message {
     color: var(--error);
-    font-size: 0.9rem;
+    font-size: 0.75rem;
     margin-top: 0.5rem;
-    font-style: italic;
     display: none;
-    position: relative;
-    z-index: 1;
 }
 
 .error-message.show {
@@ -103,19 +112,17 @@ h1 {
 
 .calculate-btn {
     background-color: var(--primary);
-    color: var(--white);
+    color: white;
     border: none;
     border-radius: 50%;
-    width: 70px;
-    height: 70px;
-    font-size: 1.5rem;
-    cursor: pointer;
-    transition: all 0.3s;
+    width: 60px;
+    height: 60px;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 2rem auto;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: all 0.3s;
+    margin: 1.5rem auto;
     position: relative;
     z-index: 1;
 }
@@ -125,19 +132,24 @@ h1 {
     transform: translateY(-3px);
 }
 
+.calculate-btn svg {
+    width: 24px;
+    height: 24px;
+}
+
 .result-container {
-    margin-top: 2rem;
-    padding-top: 2rem;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
     border-top: 1px solid var(--light-grey);
     position: relative;
     z-index: 1;
 }
 
 .result-line {
-    font-size: 3rem;
+    font-size: clamp(1.5rem, 6vw, 2.5rem);
     font-weight: 800;
     font-style: italic;
-    line-height: 1.2;
+    line-height: 1.3;
     color: var(--off-black);
 }
 
@@ -146,27 +158,27 @@ h1 {
     margin-right: 0.5rem;
 }
 
-@media (max-width: 600px) {
-    .container {
-        padding: 2rem;
+/* Media Queries para telas maiores */
+@media (min-width: 768px) {
+    .input-container {
+        flex-direction: row;
+        justify-content: space-between;
     }
     
-    .container::after {
-        width: 100px;
-        height: 100px;
+    .date-input-wrapper {
+        width: 30%;
     }
     
-    h1 {
-        font-size: 2rem;
+    .calculator-container {
+        padding: 2.5rem;
     }
     
     .result-line {
-        font-size: 2rem;
+        font-size: clamp(2rem, 5vw, 3rem);
     }
     
     .calculate-btn {
-        width: 60px;
-        height: 60px;
-        font-size: 1.2rem;
+        width: 70px;
+        height: 70px;
     }
 }

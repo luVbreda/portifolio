@@ -410,9 +410,8 @@
             const today = new Date();
             dateInput.setAttribute('min', today.toISOString().split('T')[0]);
             
-            // Validação no blur (quando sai do campo)
             function setupValidation() {
-                // Validação do nome (só ao sair do campo)
+                // Validação do nome 
                 nameInput.addEventListener('blur', function() {
                     if (!this.value.trim()) {
                         this.classList.add('error-field');
@@ -423,7 +422,7 @@
                     }
                 });
                 
-                // Validação do email (só ao sair do campo)
+                // Validação do email
                 emailInput.addEventListener('blur', function() {
                     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                     if (!this.value || !emailRegex.test(this.value)) {
@@ -435,7 +434,7 @@
                     }
                 });
                 
-                // Validação da data (só ao sair do campo)
+                // Validação da data
                 dateInput.addEventListener('blur', function() {
                     const selectedDate = new Date(this.value);
                     if (!this.value || selectedDate < today) {
@@ -562,7 +561,7 @@
                 formSection.style.display = 'none';
                 actionButtons.style.display = 'flex';
                 
-                // Centraliza o ticket mantendo o tamanho
+                // Centraliza o ticket
                 document.querySelector('.container').style.gridTemplateColumns = '1fr';
                 document.querySelector('.container').style.maxWidth = '500px'; /* Ajustado para 500px */
                 document.querySelector('.container').style.margin = '0 auto';
