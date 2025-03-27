@@ -1,0 +1,172 @@
+:root {
+    --primary: hsl(259, 100%, 65%);
+    --error: hsl(0, 100%, 67%);
+    --white: hsl(0, 0%, 100%);
+    --off-white: hsl(0, 0%, 94%);
+    --light-grey: hsl(0, 0%, 86%);
+    --smokey-grey: hsl(0, 1%, 44%);
+    --off-black: hsl(0, 0%, 8%);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: var(--off-white);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.container {
+    background-color: var(--white);
+    width: 600px;
+    max-width: 90%;
+    padding: 3rem;
+    border-radius: 1.5rem 1.5rem 6rem 1.5rem; /* Alterado aqui */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Adicionando o detalhe no canto inferior direito */
+.container::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 150px;
+    height: 150px;
+    background: var(--primary);
+    border-radius: 50% 0 0 0;
+    transform: translate(30%, 30%);
+    opacity: 0.1;
+    z-index: 0;
+}
+
+h1 {
+    color: var(--off-black);
+    margin-bottom: 2rem;
+    font-size: 2.5rem;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+.input-container {
+    position: relative;
+    margin-bottom: 2rem;
+    z-index: 1;
+}
+
+.date-input {
+    width: 100%;
+    padding: 1rem;
+    border: 2px solid var(--light-grey);
+    border-radius: 0.5rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--off-black);
+    transition: all 0.3s;
+    position: relative;
+    z-index: 1;
+    background-color: transparent;
+}
+
+.date-input:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+.date-input.error {
+    border-color: var(--error);
+}
+
+.error-message {
+    color: var(--error);
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    font-style: italic;
+    display: none;
+    position: relative;
+    z-index: 1;
+}
+
+.error-message.show {
+    display: block;
+}
+
+.calculate-btn {
+    background-color: var(--primary);
+    color: var(--white);
+    border: none;
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2rem auto;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 1;
+}
+
+.calculate-btn:hover {
+    background-color: var(--off-black);
+    transform: translateY(-3px);
+}
+
+.result-container {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--light-grey);
+    position: relative;
+    z-index: 1;
+}
+
+.result-line {
+    font-size: 3rem;
+    font-weight: 800;
+    font-style: italic;
+    line-height: 1.2;
+    color: var(--off-black);
+}
+
+.result-number {
+    color: var(--primary);
+    margin-right: 0.5rem;
+}
+
+@media (max-width: 600px) {
+    .container {
+        padding: 2rem;
+    }
+    
+    .container::after {
+        width: 100px;
+        height: 100px;
+    }
+    
+    h1 {
+        font-size: 2rem;
+    }
+    
+    .result-line {
+        font-size: 2rem;
+    }
+    
+    .calculate-btn {
+        width: 60px;
+        height: 60px;
+        font-size: 1.2rem;
+    }
+}
